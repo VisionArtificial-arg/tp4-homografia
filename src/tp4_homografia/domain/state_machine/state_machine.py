@@ -1,14 +1,16 @@
-from .state import State
-from tp4_homografia.states import FinalState, ManualSelectionState
-from .state_event import StateEvent
+from .state_event import (
+    EndSelectionEvent,
+    NoActionEvent,
+    StartManualSelectionEvent,
+    StateEvent,
+    StopEvent,
+)
+from .states import State, FinalState, ManualSelectionState, VisualizationState
 
 
 class StateMachine:
-    def __init__(
-        self,
-        initial_state,
-    ):
-        self._state = initial_state
+    def __init__(self):
+        self._state = VisualizationState()
 
     @property
     def current(self) -> State:
@@ -19,14 +21,14 @@ class StateMachine:
         event: StateEvent,
     ):
         match event:
-            case StateEvent.NO_ACTION:
+            case NoActionEvent():
                 return
-            case StateEvent.STOP:
+            case StopEvent():
                 self._state = FinalState()
-            case StateEvent.START_MANUAL_SELECTION:
+            case StartManualSelectionEvent():
                 self._state = ManualSelectionState()
                 print("Entered manual selection")
-            case StateEvent.END_SELECTION:
+            case EndSelectionEvent():
                 print("Selection ended")
 
     def is_running(self) -> bool:

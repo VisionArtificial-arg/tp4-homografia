@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from tp4_homografia.domain.state_event import StateEvent
+from ..state_event import StateEvent
 
 
 class State(ABC):

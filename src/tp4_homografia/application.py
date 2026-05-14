@@ -2,14 +2,13 @@ import cv2
 
 from .interaction.input_controller import InputController
 from .domain.state_machine import StateMachine
-from .states import VisualizationState
 from .infrastructure import Camera
 
 
 class Application:
     def __init__(self) -> None:
         self.camera = Camera()
-        self.state_machine: StateMachine = StateMachine(VisualizationState())
+        self.state_machine: StateMachine = StateMachine()
 
     def run(self):
         while self.state_machine.is_running():

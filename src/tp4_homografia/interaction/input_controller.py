@@ -2,7 +2,7 @@ from typing import Deque, Tuple
 import cv2
 
 from tp4_homografia.domain import StateMachine
-from tp4_homografia.domain.state_event import StateEvent
+from tp4_homografia.domain.state_machine import StateEvent
 
 
 from collections import deque
