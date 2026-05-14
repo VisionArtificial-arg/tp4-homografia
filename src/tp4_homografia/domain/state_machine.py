@@ -23,3 +23,6 @@ class StateMachine:
                 return
             case StateEvent.STOP:
                 self._state = FinalState()
+
+    def is_running(self) -> bool:
+        return not isinstance(self.current, FinalState)

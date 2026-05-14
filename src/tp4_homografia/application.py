@@ -1,6 +1,6 @@
 import cv2
 
-from .interaction.input_conctroller import InputController
+from .interaction.input_controller import InputController
 from .domain.state_machine import StateMachine
 from .states import VisualizationState
 from .infrastructure import Camera
@@ -14,13 +14,14 @@ class Application:
         self.input_controller: InputController = InputController(self.state_machine)
 
     def run(self):
-        while self.running:
+        while self.state_machine.is_running():
             frame = self.camera.read()
             cv2.imshow("Perspective", frame)
-            key = cv2.waitKey(1)
-
-            if key == 27:
-                self.running = False
-
-            self.state_machine.current.update(frame)
+            input_event = self.input_controller.poll()
+            print(type(self.state_machine.current))
+            print(f"INPUT EVENT: {input_event}")
+            self.state_machine.transition(input_event)
+            update_event = self.state_machine.current.update(frame)
+            print(update_event)
+            self.state_machine.transition(update_event)
         self.camera.release()

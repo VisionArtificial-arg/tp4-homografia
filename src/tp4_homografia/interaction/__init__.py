@@ -1,3 +1,3 @@
-from .input_conctroller import InputController
+from .input_controller import InputController
 
 __all__ = ["InputController"]
