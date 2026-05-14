@@ -21,7 +21,7 @@ class CancelSelectionEvent: ...
 
 @dataclass(frozen=True)
 class EndSelectionEvent:
-    cornerns: tuple[Point, ...]
+    corners: tuple[Point, ...]
 
 
 StateEvent = (

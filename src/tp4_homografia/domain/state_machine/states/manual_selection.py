@@ -1,6 +1,6 @@
 from typing import List
 from .abstract import State
-from tp4_homografia.domain import Point
+from ...point import Point
 from ..state_event import (
     CancelSelectionEvent,
     EndSelectionEvent,
@@ -23,4 +23,6 @@ class ManualSelectionState(State):
         return NoActionEvent()
 
     def handle_key(self, key: int) -> StateEvent:
-        return CancelSelectionEvent()
+        if key != 255:
+            return CancelSelectionEvent()
+        return NoActionEvent()

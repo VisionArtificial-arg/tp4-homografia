@@ -14,10 +14,10 @@ class OpenCVHomographyService(
         destination: tuple[Point, ...],
     ) -> Homography:
 
-        source_array = np.array([[p.x, p.y] for p in source], dtype=np.float64)
+        source_array = np.array([[p.x, p.y] for p in source], dtype=np.float32)
 
         destination_array = np.array(
-            [[p.x, p.y] for p in destination], dtype=np.float64
+            [[p.x, p.y] for p in destination], dtype=np.float32
         )
 
         matrix = cv2.getPerspectiveTransform(

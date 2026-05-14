@@ -1,4 +1,5 @@
 from .state_event import (
+    CancelSelectionEvent,
     EndSelectionEvent,
     NoActionEvent,
     StartManualSelectionEvent,
@@ -10,11 +11,11 @@ from .states import State, FinalState, ManualSelectionState, VisualizationState
 
 class StateMachine:
     def __init__(self):
-        self._state = VisualizationState()
+        self._current = VisualizationState()
 
     @property
     def current(self) -> State:
-        return self._state
+        return self._current
 
     def transition(
         self,
@@ -24,12 +25,14 @@ class StateMachine:
             case NoActionEvent():
                 return
             case StopEvent():
-                self._state = FinalState()
+                self._current = FinalState()
             case StartManualSelectionEvent():
-                self._state = ManualSelectionState()
+                self._current = ManualSelectionState()
                 print("Entered manual selection")
             case EndSelectionEvent():
                 print("Selection ended")
+            case CancelSelectionEvent():
+                self._current = VisualizationState()
 
     def is_running(self) -> bool:
         return not isinstance(self.current, FinalState)
