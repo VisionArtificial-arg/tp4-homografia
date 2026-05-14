@@ -10,13 +10,14 @@ class Application:
     def __init__(self) -> None:
         self.camera = Camera()
         self.state_machine: StateMachine = StateMachine(VisualizationState())
-        self.running = True
-        self.input_controller: InputController = InputController(self.state_machine)
 
     def run(self):
         while self.state_machine.is_running():
             frame = self.camera.read()
             cv2.imshow("Perspective", frame)
+            self.input_controller: InputController = InputController(
+                self.state_machine, "Perspective"
+            )
             input_event = self.input_controller.poll()
             self.state_machine.transition(input_event)
             update_event = self.state_machine.current.update(frame)
