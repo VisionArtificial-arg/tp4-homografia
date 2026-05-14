@@ -1,5 +1,6 @@
 import cv2
 
+from .services.opencv import OpenCVHomographyService
 from .interaction.input_controller import InputController
 from .domain.state_machine import StateMachine
 from .infrastructure import Camera
@@ -9,6 +10,7 @@ class Application:
     def __init__(self) -> None:
         self.camera = Camera()
         self.state_machine: StateMachine = StateMachine()
+        self.homography_service = OpenCVHomographyService()
 
     def run(self):
         while self.state_machine.is_running():

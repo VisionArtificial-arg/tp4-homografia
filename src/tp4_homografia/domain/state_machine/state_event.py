@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from .point import Point
+from ..point import Point
 
 
 @dataclass(frozen=True)
@@ -16,8 +16,18 @@ class StartManualSelectionEvent: ...
 
 
 @dataclass(frozen=True)
+class CancelSelectionEvent: ...
+
+
+@dataclass(frozen=True)
 class EndSelectionEvent:
     cornerns: tuple[Point, ...]
 
 
-StateEvent = NoActionEvent | StopEvent | StartManualSelectionEvent | EndSelectionEvent
+StateEvent = (
+    NoActionEvent
+    | StopEvent
+    | StartManualSelectionEvent
+    | EndSelectionEvent
+    | CancelSelectionEvent
+)
