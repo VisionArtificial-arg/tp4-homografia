@@ -1,0 +1,26 @@
+[project]
+name = "tp4-homografia"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "GarroteSantiago", email = "sgarrote@mail.austral.edu.ar" }
+]
+requires-python = ">=3.11.9"
+dependencies = [
+    "ast-serialize>=0.3.0",
+    "librt>=0.11.0",
+    "mypy>=2.1.0",
+    "mypy-extensions>=1.1.0",
+    "numpy>=2.4.4",
+    "opencv-python>=4.13.0.92",
+    "pathspec>=1.1.1",
+    "typing-extensions>=4.15.0",
+]
+
+[project.scripts]
+tp4-homografia = "tp4_homografia.main:main"
+
+[build-system]
+requires = ["uv_build>=0.11.13,<0.12.0"]
+build-backend = "uv_build"
