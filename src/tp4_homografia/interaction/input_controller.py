@@ -21,8 +21,6 @@ class InputController:
             & 0xFF
         )
 
-        print(key)
-
         return self._state_machine.current.handle_key(
             key,
         )
