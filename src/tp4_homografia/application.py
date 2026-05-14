@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Any, Optional
 import cv2
 
 from .domain.point import Point
@@ -16,6 +16,7 @@ class Application:
         self.state_machine: StateMachine = StateMachine()
         self.homography_service = OpenCVHomographyService()
         self.last_homography: Optional[Homography] = None
+        self.last_homography_frame: Optional[Any] = None
         self.warp_renderer = WarpRenderer()
         self.grid_renderer = GridRenderer()
 
@@ -30,70 +31,42 @@ class Application:
         )
 
         while self.state_machine.is_running():
-            #
-            # 1. read fresh frame
-            #
-
             frame = self.camera.read()
-
-            #
-            # 2. input
-            #
-
             input_event = self.input_controller.poll()
-
-            if isinstance(
-                input_event,
-                EndSelectionEvent,
-            ):
+            if isinstance(input_event, EndSelectionEvent):
                 print("Doing Homography")
-
                 destination = (
                     Point(0, 0),
                     Point(300, 0),
                     Point(300, 300),
                     Point(0, 300),
                 )
-
                 self.last_homography = self.homography_service.compute(
                     input_event.corners,
                     destination,
                 )
+                self.last_homography_frame = frame
 
             self.state_machine.transition(
                 input_event,
             )
-
             update_event = self.state_machine.current.update(
                 frame,
             )
-
             self.state_machine.transition(
                 update_event,
             )
-
-            #
-            # 3. render overlays
-            #
-
             if self.last_homography:
                 self.grid_renderer.render(
                     frame,
                     self.last_homography,
                 )
-
                 self.warp_renderer.render(
-                    frame,
+                    self.last_homography_frame,
                     self.last_homography,
                 )
-
-            #
-            # 4. show final frame
-            #
-
             cv2.imshow(
                 "Perspective",
                 frame,
             )
-
         self.camera.release()
