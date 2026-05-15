@@ -12,6 +12,14 @@ class StopEvent: ...
 
 
 @dataclass(frozen=True)
+class StartQrPreDetectionEvent: ...
+
+
+@dataclass(frozen=True)
+class DetectQrEvent: ...
+
+
+@dataclass(frozen=True)
 class StartManualSelectionEvent: ...
 
 
@@ -28,6 +36,8 @@ StateEvent = (
     NoActionEvent
     | StopEvent
     | StartManualSelectionEvent
+    | StartQrPreDetectionEvent
+    | DetectQrEvent
     | EndSelectionEvent
     | CancelSelectionEvent
 )

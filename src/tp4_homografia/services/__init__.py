@@ -1,5 +1,10 @@
-from .rendering.grid_renderer import GridRenderer
-from .rendering.warp_renderer import WarpRenderer
-from .homography.opencv import OpenCVHomographyService
+from .qr import OpenCVQRDetector
+from .rendering import WarpRenderer, GridRenderer
+from .homography import OpenCVHomographyService
 
-__all__ = ["OpenCVHomographyService", "WarpRenderer", "GridRenderer"]
+__all__ = [
+    "OpenCVHomographyService",
+    "WarpRenderer",
+    "GridRenderer",
+    "OpenCVQRDetector",
+]

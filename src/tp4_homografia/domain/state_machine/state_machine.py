@@ -3,10 +3,17 @@ from .state_event import (
     EndSelectionEvent,
     NoActionEvent,
     StartManualSelectionEvent,
+    StartQrPreDetectionEvent,
     StateEvent,
     StopEvent,
 )
-from .states import State, FinalState, ManualSelectionState, VisualizationState
+from .states import (
+    State,
+    FinalState,
+    ManualSelectionState,
+    QrPreDetectionState,
+    VisualizationState,
+)
 
 
 class StateMachine:
@@ -29,6 +36,9 @@ class StateMachine:
             case StartManualSelectionEvent():
                 self._current = ManualSelectionState()
                 print("Entered manual selection")
+            case StartQrPreDetectionEvent():
+                print("Entered qr selection")
+                self._current = QrPreDetectionState()
             case EndSelectionEvent():
                 print("Selection ended")
                 self._current = VisualizationState()
