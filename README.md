@@ -86,13 +86,7 @@ uv sync
 ## Running
 
 ```bash
-tp4-homografia
-```
-
-Or directly:
-
-```bash
-python -m tp4_homografia.main
+uv run tp4-homografia
 ```
 
 Requires a V4L2-compatible camera on `/dev/video0`.
