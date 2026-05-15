@@ -6,16 +6,12 @@ from tp4_homografia.domain.homography import (
 
 
 class WarpRenderer:
-    def render(
-        self,
-        frame,
-        homography: Homography,
-    ) -> None:
+    def render(self, frame, homography: Homography, size: int = 300) -> None:
 
         warped = cv2.warpPerspective(
             frame,
             homography.matrix,
-            (300, 300),
+            (size, size),
         )
 
         cv2.imshow(

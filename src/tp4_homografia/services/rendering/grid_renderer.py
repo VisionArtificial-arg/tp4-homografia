@@ -10,16 +10,11 @@ from tp4_homografia.domain import (
 
 
 class GridRenderer:
-    def __init__(
-        self,
-        rows: int = 3,
-        columns: int = 3,
-        cell_size: int = 100,
-    ) -> None:
+    def __init__(self, rows: int = 3, columns: int = 3, plane_size: int = 300) -> None:
 
         self._rows = rows
         self._columns = columns
-        self._cell_size = cell_size
+        self._cell_size = plane_size / rows
 
     def render(
         self,

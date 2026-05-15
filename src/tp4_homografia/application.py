@@ -11,6 +11,8 @@ from .interaction.input_controller import InputController
 from .domain.state_machine import StateMachine
 from .infrastructure import Camera
 
+SIZE = 500
+
 
 class Application:
     def __init__(self) -> None:
@@ -20,7 +22,7 @@ class Application:
         self.last_homography: Optional[Homography] = None
         self.last_homography_frame: Optional[Any] = None
         self.warp_renderer = WarpRenderer()
-        self.grid_renderer = GridRenderer()
+        self.grid_renderer = GridRenderer(plane_size=SIZE)
         self.qr_selector = OpenCVQRDetector()
 
     def run(self):
@@ -42,9 +44,9 @@ class Application:
                 print("Doing Homography")
                 destination = (
                     Point(0, 0),
-                    Point(300, 0),
-                    Point(300, 300),
-                    Point(0, 300),
+                    Point(SIZE, 0),
+                    Point(SIZE, SIZE),
+                    Point(0, SIZE),
                 )
                 self.last_homography = self.homography_service.compute(
                     input_event.corners,
@@ -63,8 +65,7 @@ class Application:
             )
             if self.last_homography:
                 self.warp_renderer.render(
-                    self.last_homography_frame,
-                    self.last_homography,
+                    self.last_homography_frame, self.last_homography, SIZE
                 )
                 self.grid_renderer.render(
                     frame,
