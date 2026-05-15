@@ -18,6 +18,7 @@ class ManualSelectionState(State):
 
     def handle_click(self, x, y) -> StateEvent:
         self.points.append(Point(x, y))
+        print(f"Click n°: {len(self.points)}")
         if len(self.points) == 4:
             return EndSelectionEvent(tuple(self.points))
         return NoActionEvent()

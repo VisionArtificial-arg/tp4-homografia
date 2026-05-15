@@ -31,7 +31,9 @@ class StateMachine:
                 print("Entered manual selection")
             case EndSelectionEvent():
                 print("Selection ended")
+                self._current = VisualizationState()
             case CancelSelectionEvent():
+                print("Selection canceled")
                 self._current = VisualizationState()
 
     def is_running(self) -> bool:

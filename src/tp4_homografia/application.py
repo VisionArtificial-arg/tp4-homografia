@@ -45,7 +45,7 @@ class Application:
                     input_event.corners,
                     destination,
                 )
-                self.last_homography_frame = frame
+                self.last_homography_frame = frame.copy()
 
             self.state_machine.transition(
                 input_event,
@@ -57,12 +57,12 @@ class Application:
                 update_event,
             )
             if self.last_homography:
-                self.grid_renderer.render(
-                    frame,
-                    self.last_homography,
-                )
                 self.warp_renderer.render(
                     self.last_homography_frame,
+                    self.last_homography,
+                )
+                self.grid_renderer.render(
+                    frame,
                     self.last_homography,
                 )
             cv2.imshow(
