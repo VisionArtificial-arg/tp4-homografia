@@ -11,7 +11,7 @@ from .interaction.input_controller import InputController
 from .domain.state_machine import StateMachine
 from .infrastructure import Camera
 
-SIZE = 500
+SIZE = 1000
 
 
 class Application:

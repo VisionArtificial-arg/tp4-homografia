@@ -12,6 +12,7 @@ class WarpRenderer:
             frame,
             homography.matrix,
             (size, size),
+            flags=cv2.INTER_NEAREST,
         )
 
         cv2.imshow(
